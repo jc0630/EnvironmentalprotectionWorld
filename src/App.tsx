@@ -2,19 +2,17 @@ import { useState, useEffect, type FormEvent } from 'react';
 import { 
   Menu, X, Phone, Mail, MapPin, CheckCircle2, 
   Home, Building2, Utensils, School, Trash2, 
-  Truck, Award, Leaf, ZoomIn, Send, ArrowRight,
-  ShieldCheck, Clock, Sparkles, RefreshCw
+  Truck, Award, Leaf, Send, ArrowRight,
+  ShieldCheck, Clock, Sparkles, RefreshCw, FileCheck
 } from 'lucide-react';
 
 import heroBannerImg from './assets/images/hero_banner_trucks_1789012782820.jpg';
 import fleetTruckImg from './assets/images/fleet_pink_truck_1789012800902.jpg';
-import certImg from './assets/images/permit_certificate_1789012819864.jpg';
 import logoImg from './assets/images/company_logo_1789012838006.jpg';
 
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isCertModalOpen, setIsCertModalOpen] = useState(false);
   const [flippedCards, setFlippedCards] = useState<Record<number, boolean>>({});
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -529,13 +527,13 @@ export default function App() {
         </div>
       </section>
 
-      {/* Certificates Section */}
+      {/* Certificates Section - Beautified Text & Feature Cards Layout */}
       <section id="certificates" className="py-24 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white text-pink-600 text-sm font-bold mb-3 border border-pink-100 shadow-sm">
               <Award className="w-4 h-4" />
-              <span>ACCREDITATION</span>
+              <span>ACCREDITATION & COMPLIANCE</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">專業許可證書</h2>
             <div className="w-14 h-1 bg-pink-300 mx-auto rounded-full mb-4"></div>
@@ -544,112 +542,95 @@ export default function App() {
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white/85 backdrop-blur-md p-8 md:p-12 rounded-3xl shadow-md border border-pink-100 flex flex-col md:flex-row items-center gap-10">
+          {/* Main Accreditation Feature Layout */}
+          <div className="max-w-5xl mx-auto space-y-8">
+            
+            {/* Top Highlight Statement Card */}
+            <div className="bg-white/85 backdrop-blur-md p-8 sm:p-10 rounded-3xl shadow-sm border border-pink-100 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-80 h-80 bg-pink-50 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
               
-              {/* Certificate Preview Card */}
-              <div className="w-full md:w-2/5 shrink-0">
-                <div
-                  className="relative group cursor-pointer"
-                  onClick={() => setIsCertModalOpen(true)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => e.key === 'Enter' && setIsCertModalOpen(true)}
-                  aria-label="查看許可證書"
-                >
-                  <div className="aspect-[3/4] bg-white rounded-2xl border-4 border-pink-50 p-2.5 overflow-hidden relative shadow-sm group-hover:shadow-md transition-shadow">
-                    <img 
-                      src={certImg} 
-                      alt="政府核發廢棄物清除許可證書" 
-                      className="w-full h-full object-cover rounded-xl"
-                      referrerPolicy="no-referrer"
-                    />
-                    <div className="absolute inset-0 bg-slate-900/20 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center rounded-2xl backdrop-blur-[1px]">
-                      <span className="bg-white text-slate-800 px-4 py-2 rounded-full text-sm font-bold shadow-lg flex items-center gap-2 transform translate-y-2 group-hover:translate-y-0 transition-transform">
-                        <ZoomIn className="w-4 h-4 text-pink-500" />
-                        點擊放大查看
-                      </span>
-                    </div>
+              <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-slate-100">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-2xl bg-pink-100 text-pink-600 flex items-center justify-center flex-shrink-0 shadow-xs">
+                    <ShieldCheck className="w-8 h-8" />
                   </div>
+                  <div>
+                    <span className="text-xs font-bold text-pink-600 tracking-wider uppercase bg-pink-50 px-2.5 py-0.5 rounded-full border border-pink-200">
+                      LEGAL COMPLIANCE
+                    </span>
+                    <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-1">政府合法廢棄物清除許可</h3>
+                  </div>
+                </div>
+
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-pink-50/80 border border-pink-200/80 text-pink-700 text-sm font-semibold">
+                  <CheckCircle2 className="w-4 h-4 text-pink-500" />
+                  <span>環保局審查核發 ‧ 依法合規</span>
                 </div>
               </div>
-              
-              {/* Certificate Details */}
-              <div className="w-full md:w-3/5">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-pink-50 flex items-center justify-center text-pink-500 border border-pink-100">
-                    <Award className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-slate-800">政府合法廢棄物清除許可</h3>
-                </div>
-                
-                <p className="text-slate-600 leading-relaxed mb-6">
-                  環保世界企業有限公司具備政府環保局正式審查核發之廢棄物清除許可證。我們恪遵廢棄物清理法及相關環保法規，落實清運流向合法登記，提供合法合規的處置證明文件，讓您安心委託。
-                </p>
-                
-                <ul className="space-y-3.5 mb-8">
-                  {[
-                    '合法立案登記，依法執行廢棄物清除',
-                    '定期更新證照，落實人員專業訓練',
-                    '提供完整清除處理合約與清運流向保障'
-                  ].map((text, i) => (
-                    <li key={i} className="flex items-center gap-2.5 text-sm text-slate-700 font-medium">
-                      <div className="w-2 h-2 rounded-full bg-pink-400"></div>
-                      <span>{text}</span>
-                    </li>
-                  ))}
-                </ul>
 
-                <button
-                  type="button"
-                  onClick={() => setIsCertModalOpen(true)}
-                  className="px-6 py-2.5 rounded-full border border-pink-200 text-slate-700 hover:bg-pink-50 font-bold text-sm transition-colors inline-flex items-center gap-2 bg-white shadow-sm"
-                >
-                  <ZoomIn className="w-4 h-4 text-pink-500" />
-                  查看許可證書大圖
-                </button>
+              <div className="relative z-10 pt-6">
+                <p className="text-slate-600 leading-relaxed text-base sm:text-lg font-normal">
+                  環保世界企業有限公司具備政府環保局正式審查核發之廢棄物清除許可證。我們恪遵《廢棄物清理法》及相關環保法規，落實清運流向合法登記，提供完整合法的處置證明文件與定期申報，讓社區大樓與企業客戶皆能安心委託。
+                </p>
+              </div>
+            </div>
+
+            {/* 4 Core Pillars Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              
+              <div className="bg-white/80 backdrop-blur-sm p-7 rounded-3xl border border-pink-100 shadow-xs hover:border-pink-300 transition-colors">
+                <div className="flex items-center gap-3.5 mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-pink-50 text-pink-500 flex items-center justify-center flex-shrink-0">
+                    <Award className="w-5 h-5" />
+                  </div>
+                  <h4 className="font-bold text-lg text-slate-800">合法立案登記</h4>
+                </div>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  領有主管機關正式廢棄物清除許可證，依法執行各項一般廢棄物與大型報廢物清運作業。
+                </p>
+              </div>
+
+              <div className="bg-white/80 backdrop-blur-sm p-7 rounded-3xl border border-pink-100 shadow-xs hover:border-pink-300 transition-colors">
+                <div className="flex items-center gap-3.5 mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-pink-50 text-pink-500 flex items-center justify-center flex-shrink-0">
+                    <FileCheck className="w-5 h-5" />
+                  </div>
+                  <h4 className="font-bold text-lg text-slate-800">完整清運流向合約</h4>
+                </div>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  提供正式清運包月合約、清運遞送聯單及合規處置證明，滿足管委會與企業審計報帳需求。
+                </p>
+              </div>
+
+              <div className="bg-white/80 backdrop-blur-sm p-7 rounded-3xl border border-pink-100 shadow-xs hover:border-pink-300 transition-colors">
+                <div className="flex items-center gap-3.5 mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-pink-50 text-pink-500 flex items-center justify-center flex-shrink-0">
+                    <RefreshCw className="w-5 h-5" />
+                  </div>
+                  <h4 className="font-bold text-lg text-slate-800">定期更新與合格審查</h4>
+                </div>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  依法定期更新許可證照，車輛與清運機具均符合國家環保排氣與防滴漏衛生安全標準。
+                </p>
+              </div>
+
+              <div className="bg-white/80 backdrop-blur-sm p-7 rounded-3xl border border-pink-100 shadow-xs hover:border-pink-300 transition-colors">
+                <div className="flex items-center gap-3.5 mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-pink-50 text-pink-500 flex items-center justify-center flex-shrink-0">
+                    <ShieldCheck className="w-5 h-5" />
+                  </div>
+                  <h4 className="font-bold text-lg text-slate-800">專業受訓清運人員</h4>
+                </div>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  清運團隊定期接受作業安全與環保法規講習，作業迅速、落實安全防護與親切服務。
+                </p>
               </div>
 
             </div>
+
           </div>
         </div>
       </section>
-
-      {/* Certificate Modal */}
-      {isCertModalOpen && (
-        <div 
-          className="fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4 backdrop-blur-sm animate-fadeIn"
-          onClick={() => setIsCertModalOpen(false)}
-        >
-          <div 
-            className="bg-white rounded-3xl max-w-lg w-full p-6 relative shadow-2xl border-4 border-pink-50"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button 
-              className="absolute top-4 right-4 p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors"
-              onClick={() => setIsCertModalOpen(false)}
-              aria-label="關閉預覽"
-            >
-              <X className="w-6 h-6" />
-            </button>
-            <div className="flex items-center gap-2.5 mb-4">
-              <Award className="w-5 h-5 text-pink-500" />
-              <h4 className="text-lg font-bold text-slate-800">廢棄物清除許可證書</h4>
-            </div>
-            <div className="aspect-[3/4] bg-pink-50/50 rounded-2xl overflow-hidden border border-pink-100 p-2">
-              <img 
-                src={certImg} 
-                alt="許可證書高清預覽" 
-                className="w-full h-full object-contain bg-white rounded-xl"
-                referrerPolicy="no-referrer"
-              />
-            </div>
-            <p className="text-xs text-slate-500 mt-4 text-center">
-              環保世界企業有限公司 合法廢棄物清除許可證照文件
-            </p>
-          </div>
-        </div>
-      )}
 
       {/* Contact Section */}
       <section id="contact" className="py-24 relative">
