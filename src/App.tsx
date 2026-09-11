@@ -3,7 +3,7 @@ import {
   Menu, X, Phone, Mail, MapPin, CheckCircle2, 
   Home, Building2, Utensils, School, Trash2, 
   Truck, Award, Leaf, Send, ArrowRight,
-  ShieldCheck, Clock, Sparkles, RefreshCw, FileCheck
+  ShieldCheck, Clock, Sparkles, FileCheck, RefreshCw
 } from 'lucide-react';
 
 import heroBannerImg from './assets/images/hero_banner_trucks_1789012782820.jpg';
@@ -13,7 +13,6 @@ import logoImg from './assets/images/company_logo_1789012838006.jpg';
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [flippedCards, setFlippedCards] = useState<Record<number, boolean>>({});
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -37,18 +36,10 @@ export default function App() {
     { name: '服務項目', href: '#services' },
     { name: '車輛介紹', href: '#fleet' },
     { name: '許可證書', href: '#certificates' },
-    { name: '聯絡報價', href: '#contact' },
   ];
 
   const handleNavClick = () => {
     setIsMobileMenuOpen(false);
-  };
-
-  const toggleCardFlip = (index: number) => {
-    setFlippedCards(prev => ({
-      ...prev,
-      [index]: !prev[index]
-    }));
   };
 
   const handleSelectServiceFromCard = (serviceKey: string) => {
@@ -243,7 +234,6 @@ export default function App() {
             className="w-full h-full object-cover object-center"
             referrerPolicy="no-referrer"
           />
-          {/* 明亮乾淨的漸層遮罩 */}
           <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-white/10 backdrop-blur-[1px]"></div>
           <div className="absolute inset-0 bg-pink-50/20 mix-blend-overlay"></div>
         </div>
@@ -352,7 +342,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Services Section - 3D Flip Cards */}
+      {/* Services Section - Single Page Cards with Hover Float & Color Accent */}
       <section id="services" className="py-24 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
@@ -363,87 +353,49 @@ export default function App() {
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">服務項目</h2>
             <div className="w-14 h-1 bg-pink-300 mx-auto rounded-full mb-4"></div>
             <p className="text-slate-600">
-              點擊或懸停卡片即可翻面查看服務細節，量身打造最合適的廢棄物清運包月方案。
+              提供全方位廢棄物清運包月與專案服務，為您量身打造最高效衛生的環保方案。
             </p>
           </div>
 
-          {/* Flip Cards Grid */}
+          {/* Services Grid (Single Face Cards with Hover Float & Accent) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {servicesData.map((service, idx) => {
-              const isFlipped = !!flippedCards[idx];
+            {servicesData.map((service) => {
               return (
                 <div 
                   key={service.id}
-                  className="perspective-1000 h-[360px] group cursor-pointer"
-                  onClick={() => toggleCardFlip(idx)}
+                  className="bg-white/90 backdrop-blur-md rounded-3xl p-8 shadow-sm border border-pink-100/80 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-pink-300 hover:bg-gradient-to-b hover:from-white hover:to-pink-50/50 group"
                 >
-                  <div 
-                    className={`relative w-full h-full transition-transform duration-700 transform-style-3d ${
-                      isFlipped ? 'rotate-y-180' : 'group-hover:[transform:rotateY(180deg)]'
-                    }`}
-                  >
-                    {/* Front Face */}
-                    <div className="absolute inset-0 w-full h-full bg-white/85 backdrop-blur-md rounded-3xl p-8 shadow-sm border border-pink-100 flex flex-col justify-between backface-hidden">
-                      <div>
-                        <div className="flex justify-between items-start mb-6">
-                          <div className="w-14 h-14 rounded-2xl bg-pink-50 border border-pink-100 flex items-center justify-center text-pink-500 shadow-sm">
-                            <service.icon className="w-7 h-7" />
-                          </div>
-                          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-pink-50 text-pink-600 border border-pink-100">
-                            {service.subtitle}
-                          </span>
-                        </div>
-                        
-                        <h3 className="text-2xl font-bold text-slate-800 mb-3">{service.title}</h3>
-                        <p className="text-slate-600 text-sm leading-relaxed">{service.desc}</p>
+                  <div>
+                    <div className="flex justify-between items-start mb-6">
+                      <div className="w-14 h-14 rounded-2xl bg-pink-50 border border-pink-100 flex items-center justify-center text-pink-500 shadow-sm group-hover:bg-pink-300 group-hover:text-white transition-colors duration-300">
+                        <service.icon className="w-7 h-7" />
                       </div>
-
-                      <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-pink-500 text-xs font-semibold">
-                        <span className="flex items-center gap-1.5">
-                          <RefreshCw className="w-3.5 h-3.5 animate-spin-slow" />
-                          翻面查看清運特點
-                        </span>
-                        <ArrowRight className="w-4 h-4" />
-                      </div>
+                      <span className="text-xs font-semibold px-3 py-1 rounded-full bg-pink-50 text-pink-600 border border-pink-100 group-hover:bg-pink-200 group-hover:text-pink-900 transition-colors duration-300">
+                        {service.subtitle}
+                      </span>
                     </div>
+                    
+                    <h3 className="text-2xl font-bold text-slate-800 mb-3 group-hover:text-pink-600 transition-colors duration-300">{service.title}</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed mb-6">{service.desc}</p>
 
-                    {/* Back Face */}
-                    <div className="absolute inset-0 w-full h-full bg-pink-50/95 backdrop-blur-md text-slate-800 rounded-3xl p-7 shadow-lg flex flex-col justify-between rotate-y-180 backface-hidden border border-pink-200">
-                      <div>
-                        <div className="flex items-center justify-between mb-4 pb-3 border-b border-pink-200/60">
-                          <div className="flex items-center gap-2">
-                            <service.icon className="w-5 h-5 text-pink-600" />
-                            <h4 className="text-lg font-bold text-slate-800">{service.title} 方案</h4>
-                          </div>
-                          <span className="text-[11px] text-pink-700 bg-white px-2 py-0.5 rounded-full border border-pink-200 font-semibold">
-                            包月/專案
-                          </span>
+                    <div className="space-y-2.5 mb-8 pt-4 border-t border-slate-100 group-hover:border-pink-200/60 transition-colors duration-300">
+                      {service.highlights.map((point, pIdx) => (
+                        <div key={pIdx} className="flex items-start gap-2 text-xs text-slate-700 font-medium">
+                          <CheckCircle2 className="w-4 h-4 text-pink-400 group-hover:text-pink-600 flex-shrink-0 mt-0.5 transition-colors duration-300" />
+                          <span>{point}</span>
                         </div>
-
-                        <ul className="space-y-2.5 mb-4">
-                          {service.highlights.map((point, pIdx) => (
-                            <li key={pIdx} className="flex items-start gap-2 text-xs text-slate-700 leading-normal font-medium">
-                              <CheckCircle2 className="w-4 h-4 text-pink-500 flex-shrink-0 mt-0.5" />
-                              <span>{point}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleSelectServiceFromCard(service.id);
-                        }}
-                        className="w-full py-2.5 bg-white hover:bg-pink-100 text-slate-800 rounded-xl text-sm font-bold transition-colors shadow-sm flex items-center justify-center gap-2 border border-pink-200"
-                      >
-                        預約此服務報價
-                        <Send className="w-3.5 h-3.5 text-pink-500" />
-                      </button>
+                      ))}
                     </div>
-
                   </div>
+
+                  <button
+                    type="button"
+                    onClick={() => handleSelectServiceFromCard(service.id)}
+                    className="w-full py-3 bg-pink-50 hover:bg-pink-300 text-slate-800 hover:text-white rounded-2xl text-sm font-bold transition-all duration-300 shadow-xs flex items-center justify-center gap-2 border border-pink-200/80 group-hover:border-pink-300 cursor-pointer"
+                  >
+                    預約此服務報價
+                    <ArrowRight className="w-4 h-4 text-pink-500 group-hover:text-white transition-colors duration-300" />
+                  </button>
                 </div>
               );
             })}
@@ -527,7 +479,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Certificates Section - Beautified Text & Feature Cards Layout */}
+      {/* Certificates Section */}
       <section id="certificates" className="py-24 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
@@ -542,10 +494,8 @@ export default function App() {
             </p>
           </div>
 
-          {/* Main Accreditation Feature Layout */}
           <div className="max-w-5xl mx-auto space-y-8">
             
-            {/* Top Highlight Statement Card */}
             <div className="bg-white/85 backdrop-blur-md p-8 sm:p-10 rounded-3xl shadow-sm border border-pink-100 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-80 h-80 bg-pink-50 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
               
@@ -575,7 +525,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* 4 Core Pillars Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               
               <div className="bg-white/80 backdrop-blur-sm p-7 rounded-3xl border border-pink-100 shadow-xs hover:border-pink-300 transition-colors">
